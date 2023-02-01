@@ -1,0 +1,437 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "sp-apim-name": {
+      "type": "string"
+    },
+    "sp-apim-logger-name": {
+      "type": "string"
+    },
+    "sp-apim-rg-name": {
+      "type": "string"
+    },
+    "sp-name": {
+      "type": "string"
+    },
+    "sp-vs-id": {
+      "type": "string"
+    },
+    "sp-product-name": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2019-01-01",
+      "type": "Microsoft.ApiManagement/service/apis",
+    "name": "[concat(parameters('sp-apim-name'), '/', parameters('sp-name'))]",
+      "dependsOn": [
+      ],
+      "properties": {
+        "description": "API exposing Companies operation within the Falcon Training.",
+        "authenticationSettings": {
+          "subscriptionKeyRequired": false
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "apiRevision": "3",
+        "isCurrent": true,
+        "apiRevisionDescription": "Rename column RegistrationDate in PublishedDate.",
+      "apiVersionSetId": "[concat(resourceId('Microsoft.ApiManagement/service', parameters('sp-apim-name')), '/apiVersionSets/', parameters('sp-vs-id'))]",
+        "subscriptionRequired": true,
+        "displayName": "Bogdan Nico CompaniesAPI",
+        "path": "bogdan/nico/companies-api",
+        "protocols": [
+          "https"
+        ]
+      }
+    },
+    {
+      "apiVersion": "2019-01-01",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+    "name": "[concat(parameters('sp-apim-name'), '/', parameters('sp-name'), '/602bc8d9ab9b3717b8bf96a6')]",
+      "dependsOn": [
+      "[resourceId('Microsoft.ApiManagement/service/apis', parameters('sp-apim-name'), parameters('sp-name'))]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.oai.openapi.components+json",
+        "document": {
+          "components": {
+            "schemas": {
+              "CompanyInputInBody": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "companyName": {
+                    "type": "string"
+                  },
+                  "isBankrupt": {
+                    "type": "boolean"
+                  },
+                  "publishedDate": {
+                    "type": "string"
+                  },
+                  "numberOfEmployees": {
+                    "type": "integer"
+                  },
+                  "countryIsoCode": {
+                    "type": "string"
+                  },
+                  "addresses": {
+                    "type": "array",
+                    "items": {
+                      "required": [
+                        "id",
+                        "street",
+                        "number",
+                        "city",
+                        "addressType"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "street": {
+                          "type": "string"
+                        },
+                        "number": {
+                          "type": "string"
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "addressType": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Company": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "companyName": {
+                    "type": "string"
+                  },
+                  "isBankrupt": {
+                    "type": "boolean"
+                  },
+                  "publishedDate": {
+                    "type": "string"
+                  },
+                  "numberOfEmployees": {
+                    "type": "integer"
+                  },
+                  "countryIsoCode": {
+                    "type": "string"
+                  },
+                  "addresses": {
+                    "type": "array",
+                    "items": {
+                      "required": [
+                        "id",
+                        "street",
+                        "number",
+                        "city",
+                        "addressType"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "street": {
+                          "type": "string"
+                        },
+                        "number": {
+                          "type": "string"
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "addressType": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "CollectionResourceCompany": {
+                "type": "object",
+                "properties": {
+                  "companies": {
+                    "type": "array",
+                    "items": {
+                      "required": [
+                        "id",
+                        "companyName",
+                        "isBankrupt",
+                        "publishedDate",
+                        "numberOfEmployees",
+                        "countryIsoCode",
+                        "addresses"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "companyName": {
+                          "type": "string"
+                        },
+                        "isBankrupt": {
+                          "type": "boolean"
+                        },
+                        "publishedDate": {
+                          "type": "string"
+                        },
+                        "numberOfEmployees": {
+                          "type": "integer"
+                        },
+                        "countryIsoCode": {
+                          "type": "string"
+                        },
+                        "addresses": {
+                          "type": "array",
+                          "items": {
+                            "required": [
+                              "id",
+                              "street",
+                              "number",
+                              "city",
+                              "addressType"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "street": {
+                                "type": "string"
+                              },
+                              "number": {
+                                "type": "string"
+                              },
+                              "city": {
+                                "type": "string"
+                              },
+                              "addressType": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2019-01-01",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+    "name": "[concat(parameters('sp-apim-name'), '/', parameters('sp-name'), '/post-company')]",
+      "dependsOn": [
+      "[resourceId('Microsoft.ApiManagement/service/apis', parameters('sp-apim-name'), parameters('sp-name'))]",
+      "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('sp-apim-name'), parameters('sp-name'), '602bc8d9ab9b3717b8bf96a6')]"
+      ],
+      "properties": {
+        "displayName": "Create a new company.",
+        "method": "POST",
+        "urlTemplate": "/company",
+        "templateParameters": [
+        ],
+        "description": "Creates a new company.",
+        "request": {
+          "description": "Company to be created.",
+          "queryParameters": [
+          ],
+          "headers": [
+          ],
+          "representations": [
+            {
+              "contentType": "application/json",
+            "sample": "{\n  \"id\": \"string\",\n  \"companyName\": \"string\",\n  \"isBankrupt\": true,\n  \"publishedDate\": \"2021-02-12T11:43:38.4100000+00:00\",\n  \"numberOfEmployees\": 0,\n  \"countryIsoCode\": \"string\",\n  \"addresses\": [\n    {\n      \"id\": \"string\",\n      \"street\": \"string\",\n      \"number\": \"string\",\n      \"city\": \"string\",\n      \"addressType\": \"string\"\n    }\n  ]\n}",
+              "schemaId": "602bc8d9ab9b3717b8bf96a6",
+              "typeName": "CompanyInputInBody"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "headers": [
+            ],
+            "representations": [
+              {
+                "contentType": "application/json",
+              "sample": "{\n  \"id\": \"string\",\n  \"companyName\": \"string\",\n  \"isBankrupt\": false,\n  \"publishedDate\": \"string\",\n  \"numberOfEmployees\": 0,\n  \"countryIsoCode\": \"string\",\n  \"addresses\": [\n    {\n      \"id\": \"string\",\n      \"street\": \"string\",\n      \"number\": \"string\",\n      \"city\": \"string\",\n      \"addressType\": \"string\"\n    }\n  ]\n}",
+                "schemaId": "602bc8d9ab9b3717b8bf96a6",
+                "typeName": "CompanyInputInBody"
+              }
+            ]
+          },
+          {
+            "statusCode": 400,
+            "description": "For the provided Id, a Company already exists.",
+            "headers": [
+            ],
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2019-01-01",
+      "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+    "name": "[concat(parameters('sp-apim-name'), '/', parameters('sp-name'), '/post-company/policy')]",
+      "dependsOn": [
+      "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('sp-apim-name'), parameters('sp-name'), 'post-company')]"
+      ],
+      "properties": {
+        "value": "<!--\n    IMPORTANT:\n    - Policy elements can appear only within the <inbound>, <outbound>, <backend> section elements.\n    - To apply a policy to the incoming request (before it is forwarded to the backend service), place a corresponding policy element within the <inbound> section element.\n    - To apply a policy to the outgoing response (before it is sent back to the caller), place a corresponding policy element within the <outbound> section element.\n    - To add a policy, place the cursor at the desired insertion point and select a policy from the sidebar.\n    - To remove a policy, delete the corresponding policy statement from the policy document.\n    - Position the <base> element within a section element to inherit all policies from the corresponding section element in the enclosing scope.\n    - Remove the <base> element to prevent inheriting policies from the corresponding section element in the enclosing scope.\n    - Policies are applied in the order of their appearance, from the top down.\n    - Comments within policy elements are not supported and may disappear. Place your comments between policy elements or at a higher level scope.\n-->\r\n<policies>\r\n\t<inbound>\r\n\t\t<base />\r\n\t\t<mock-response status-code=\"201\" content-type=\"application/json\" />\r\n\t</inbound>\r\n\t<backend>\r\n\t\t<base />\r\n\t</backend>\r\n\t<outbound>\r\n\t\t<base />\r\n\t</outbound>\r\n\t<on-error>\r\n\t\t<base />\r\n\t</on-error>\r\n</policies>",
+        "format": "rawxml"
+      }
+    },
+    {
+      "apiVersion": "2019-01-01",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+    "name": "[concat(parameters('sp-apim-name'), '/', parameters('sp-name'), '/get-companies')]",
+      "dependsOn": [
+      "[resourceId('Microsoft.ApiManagement/service/apis', parameters('sp-apim-name'), parameters('sp-name'))]",
+      "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('sp-apim-name'), parameters('sp-name'), '602bc8d9ab9b3717b8bf96a6')]"
+      ],
+      "properties": {
+        "displayName": "Retrieve companies.",
+        "method": "GET",
+        "urlTemplate": "/companies",
+        "templateParameters": [
+        ],
+        "description": "Retrieves a list of companies.",
+        "request": {
+          "queryParameters": [
+          ],
+          "headers": [
+          ],
+          "representations": [
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "headers": [
+            ],
+            "representations": [
+              {
+                "contentType": "application/json",
+              "sample": "{\n  \"companies\": [\n    {\n      \"id\": \"string\",\n      \"companyName\": \"string\",\n      \"isBankrupt\": true,\n      \"publishedDate\": \"2021-02-12T11:43:38.4100000+00:00\",\n      \"numberOfEmployees\": 0,\n      \"countryIsoCode\": \"string\",\n      \"addresses\": [\n        {\n          \"id\": \"string\",\n          \"street\": \"string\",\n          \"number\": \"string\",\n          \"city\": \"string\",\n          \"addressType\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+                "schemaId": "602bc8d9ab9b3717b8bf96a6",
+                "typeName": "CollectionResourceCompany"
+              }
+            ]
+          },
+          {
+            "statusCode": 400,
+            "description": "BadRequest",
+            "headers": [
+            ],
+            "representations": [
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2019-01-01",
+      "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+    "name": "[concat(parameters('sp-apim-name'), '/', parameters('sp-name'), '/get-companies/policy')]",
+      "dependsOn": [
+      "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('sp-apim-name'), parameters('sp-name'), 'get-companies')]"
+      ],
+      "properties": {
+        "value": "<!--\n    IMPORTANT:\n    - Policy elements can appear only within the <inbound>, <outbound>, <backend> section elements.\n    - To apply a policy to the incoming request (before it is forwarded to the backend service), place a corresponding policy element within the <inbound> section element.\n    - To apply a policy to the outgoing response (before it is sent back to the caller), place a corresponding policy element within the <outbound> section element.\n    - To add a policy, place the cursor at the desired insertion point and select a policy from the sidebar.\n    - To remove a policy, delete the corresponding policy statement from the policy document.\n    - Position the <base> element within a section element to inherit all policies from the corresponding section element in the enclosing scope.\n    - Remove the <base> element to prevent inheriting policies from the corresponding section element in the enclosing scope.\n    - Policies are applied in the order of their appearance, from the top down.\n    - Comments within policy elements are not supported and may disappear. Place your comments between policy elements or at a higher level scope.\n-->\r\n<policies>\r\n\t<inbound>\r\n\t\t<base />\r\n\t\t<mock-response status-code=\"200\" content-type=\"application/json\" />\r\n\t</inbound>\r\n\t<backend>\r\n\t\t<base />\r\n\t</backend>\r\n\t<outbound>\r\n\t\t<base />\r\n\t</outbound>\r\n\t<on-error>\r\n\t\t<base />\r\n\t</on-error>\r\n</policies>",
+        "format": "rawxml"
+      }
+    },
+    {
+      "apiVersion": "2019-01-01",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+    "name": "[concat(parameters('sp-apim-name'), '/', parameters('sp-product-name'), '/', parameters('sp-name'))]",
+      "dependsOn": [
+      "[resourceId('Microsoft.ApiManagement/service/apis', parameters('sp-apim-name'), parameters('sp-name'))]"
+      ],
+      "properties": {
+      }
+    },
+    {
+      "apiVersion": "2019-01-01",
+      "type": "Microsoft.ApiManagement/service/apis/diagnostics",
+    "name": "[concat(parameters('sp-apim-name'), '/', parameters('sp-name'), '/applicationinsights')]",
+      "dependsOn": [
+      "[resourceId('Microsoft.ApiManagement/service/apis', parameters('sp-apim-name'), parameters('sp-name'))]"
+      ],
+      "properties": {
+        "alwaysLog": "allErrors",
+      "loggerId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', parameters('sp-apim-rg-name'), '/providers/Microsoft.ApiManagement/service/', parameters('sp-apim-name'), '/loggers/', parameters('sp-apim-logger-name'))]",
+        "sampling": {
+          "samplingType": "fixed",
+          "percentage": 50.0
+        },
+        "frontend": {
+          "request": {
+            "headers": [
+            ],
+            "body": {
+              "bytes": 1024
+            }
+          },
+          "response": {
+            "headers": [
+            ],
+            "body": {
+              "bytes": 1024
+            }
+          }
+        },
+        "backend": {
+          "request": {
+            "headers": [
+            ],
+            "body": {
+              "bytes": 512
+            }
+          },
+          "response": {
+            "headers": [
+            ],
+            "body": {
+              "bytes": 512
+            }
+          }
+        },
+        "enableHttpCorrelationHeaders": true
+      }
+    }
+  ]
+}

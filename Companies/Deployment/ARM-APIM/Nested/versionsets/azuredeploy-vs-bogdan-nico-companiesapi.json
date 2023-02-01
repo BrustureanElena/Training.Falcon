@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "sp-apim-name": {
+      "type": "string"
+    },
+    "sp-name": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2019-01-01",
+      "type": "Microsoft.ApiManagement/service/apiVersionSets",
+    "name": "[concat(parameters('sp-apim-name'), '/', parameters('sp-name'))]",
+      "properties": {
+        "displayName": "Bogdan Nico CompaniesAPI",
+        "versioningScheme": "Segment"
+      }
+    }
+  ]
+}
